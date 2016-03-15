@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Waterboy_Utilities>
+            <version>0.0.1</version>
+        </Waterboy_Utilities>
+    </modules>
+    <global>
+        <models>
+            <waterboy_utilities>
+                <class>Waterboy_Utilities_Model</class>
+            </waterboy_utilities>
+        </models>
+        <events>
+            <controller_action_layout_generate_blocks_before>
+                <observers>
+                    <waterboy_utilities_controller_action_layout_generate_blocks_before>
+                        <class>waterboy_utilities/observer</class>
+                        <method>controllerActionLayoutGenerateBlocksBefore</method>
+                    </waterboy_utilities_controller_action_layout_generate_blocks_before>
+                </observers>
+            </controller_action_layout_generate_blocks_before>
+        </events>
+    </global>
+</config>

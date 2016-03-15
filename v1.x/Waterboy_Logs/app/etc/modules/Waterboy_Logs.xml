@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Waterboy_Logs>
+            <active>true</active>
+            <codePool>local</codePool>
+        </Waterboy_Logs>
+    </modules>
+</config>

@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<config>
+    <menu>
+        <system>
+            <children>
+                <waterboy_logs translate="title" module="waterboy_logs">
+                    <title>Logs and Reports</title>
+                    <sort_order>10</sort_order>
+                    <action>adminhtml/waterboylogs</action>
+                </waterboy_logs>
+            </children>
+        </system>
+    </menu>
+</config>

@@ -1,0 +1,61 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Waterboy_Logs>
+            <version>0.0.1</version>
+        </Waterboy_Logs>
+    </modules>
+    <global>
+        <models>
+            <waterboy_logs>
+                <class>Waterboy_Logs_Model</class>
+                <resourceModel>waterboy_logs_resource</resourceModel>
+            </waterboy_logs>
+        </models>
+        <resources>
+            <waterboy_logs_setup>
+                <setup>
+                    <module>Waterboy_Logs</module>
+                </setup>
+            </waterboy_logs_setup>
+        </resources>
+        <blocks>
+            <waterboy_logs>
+                <class>Waterboy_Logs_Block</class>
+            </waterboy_logs>
+        </blocks>
+        <helpers>
+            <waterboy_logs>
+                <class>Waterboy_Logs_Helper</class>
+            </waterboy_logs>
+        </helpers>
+    </global>
+    <admin>
+        <routers>
+            <adminhtml>
+                <args>
+                    <modules>
+                        <waterboy_logs before="Mage_Adminhtml">Waterboy_Logs_Adminhtml</waterboy_logs>
+                    </modules>
+                </args>
+            </adminhtml>
+        </routers>
+    </admin>
+    <adminhtml>
+        <acl>
+            <resources>
+                <admin>
+                    <children>
+                        <system>
+                            <children>
+                                <waterboy_logs translate="title" module="waterboy_logs">
+                                    <title>Logs and Reports</title>
+                                </waterboy_logs>
+                            </children>
+                        </system>
+                    </children>
+                </admin>
+            </resources>
+        </acl>
+    </adminhtml>
+</config>
