@@ -21,38 +21,43 @@ class Waterboy_Logs_Adminhtml_WaterboylogsController extends Mage_Adminhtml_Cont
         $dir = $this->getRequest()->getParam('dir');
 
         if ($filename && $dir) {
-            $io = new Varien_Io_File();
-            $baseDir = Mage::getBaseDir();
-            $varDir = $baseDir . DS . 'var';
-            $fileDir = $varDir . DS . $dir;
+            if ($dir == 'log' || $dir == 'report') {
+                $io = new Varien_Io_File();
+                $baseDir = Mage::getBaseDir();
+                $varDir = $baseDir . DS . 'var';
+                $fileDir = $varDir . DS . $dir;
 
-            $io->cd($fileDir);
+                $io->cd($fileDir);
 
-            $tmpName = tempnam(sys_get_temp_dir(), 'data');
-            $file = fopen($tmpName, 'w');
-            $fileContents = '';
-            $fileContents = $io->read($filename);
+                $tmpName = tempnam(sys_get_temp_dir(), 'data');
+                $file = fopen($tmpName, 'w');
+                $fileContents = '';
+                $fileContents = $io->read($filename);
 
-            if ($fileContents) {
-                fwrite($file, $fileContents);
-                fclose($file);
+                if ($fileContents) {
+                    fwrite($file, $fileContents);
+                    fclose($file);
 
-                $this->getResponse ()
-                    ->setHttpResponseCode ( 200 )
-                    ->setHeader('Cache-Control', 'must-revalidate, post-check=0, pre-check=0', true)
-                    ->setHeader('Pragma', 'public', true)
-                    ->setHeader('Content-type', 'application/force-download')
-                    ->setHeader('Content-Length', filesize($tmpName))
-                    ->setHeader('Content-Disposition', 'attachment' . '; filename=' . $filename);
-                $this->getResponse()->clearBody();
-                $this->getResponse()->sendHeaders();
+                    $this->getResponse ()
+                        ->setHttpResponseCode ( 200 )
+                        ->setHeader('Cache-Control', 'must-revalidate, post-check=0, pre-check=0', true)
+                        ->setHeader('Pragma', 'public', true)
+                        ->setHeader('Content-type', 'application/force-download')
+                        ->setHeader('Content-Length', filesize($tmpName))
+                        ->setHeader('Content-Disposition', 'attachment' . '; filename=' . $filename);
+                    $this->getResponse()->clearBody();
+                    $this->getResponse()->sendHeaders();
 
-                readfile($tmpName);
-                unlink($tmpName);
-                exit;
+                    readfile($tmpName);
+                    unlink($tmpName);
+                    exit;
+                }
+                else {
+                    $session->addError('Could not get file contents.');
+                }
             }
             else {
-                $session->addError('Could not get file contents.');
+                $session->addError('Access to the requested directory is not permitted.');
             }
         }
         else {
